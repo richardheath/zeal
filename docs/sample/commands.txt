@@ -1,0 +1,14 @@
+#pack
+zeal pack path.to.config #settings
+
+# Publish
+zeal publish path.to.config --repo "repo" #settings
+--repo repo name to publish
+
+# Install
+zeal install package.name@version --options #settings
+
+# Uninstall
+zeal uninstall package.name[@version] --force
+
+# repo

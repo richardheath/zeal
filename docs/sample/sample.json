@@ -1,0 +1,41 @@
+{
+    "name": "packageName",
+    "description": "",
+    "version": "",
+    "multiVersionRule": ["major","minor", "p3-n", "{{group}}", "* - any version", "empty - dont allow"],
+    "packagePerOS": true,
+    "author": "",
+    "contents": {
+        "basePath": "",
+        "destination": "",
+        "files": [],
+        "filesByOS": {
+            "win": [
+                "bin/*dll"
+            ],
+            "lin": {
+                "bin/*.dll": "bin",
+                "bin/release/*.dll": "bin"
+            }
+        },
+        "exclude": []
+    },
+    "scripts": {
+        "preinstall": "powershell setupSomething {eventMetadata}",
+        "installed": "powershell setupSomething {version}",
+        "preuninstall": "",
+        "uninstalled": "",
+        "error": "",
+        "start": {
+            "win": "call powershell",
+            "lin|mac": "call bash"
+        }
+    },
+    "dependencies": {
+        "nameOfDep": "1.0.0",
+        "latest": "1.0.*"
+    },
+    "metadata": {
+        "kayValue": "Of Custom metadata"
+    }
+}
