@@ -1,27 +1,50 @@
 # Design
 
-## Pack
-pack path.to.config --options
+## pack
+Config file to package. If config file is not supplied, then zeal will use zeal.json file as default.
 
---publish repo name to publish
+usage: pack [configPath]
 
---tokens
-#tokenName
+## publish
+Package and publish a given config file. If a tar.gz file is specified then it will skip packaging.
+
+usage: publish [configPath|tar.gz] [options]
+
+options:
+
+--repo - Repo name where artifact will be published. Will use default when option is not specified.
  
-## Publish
- 
-publish path.to.config --options
+## install
+Install a package and packages that it depends on.
 
---repo ?optional - Have repo set a default option
- 
-## Install
-install package.name@version --options #tokenKey tokenValue
+usage: install \<name\>@\<version\> [options]
 
---repo
+options: 
 
---Instance/group/partition
+--repo - Force search of package to only use specified repo. Otherwise will use order of repo in config.
  
-## Uninstall
+## uninstall
+Uninstall a package from the machine.
+
+usage: uninstall \<name\>@[\<version\>|settings] [options]
+
+options:
+
+--force - Force the files to be removed even if scripts from package is failing.
+
+--all - Uninstall all installed versions on the machine.
+
+## Settings Feature
+
+Commands pack, publish, install, uninstall, and start accepts settings flags. 
+These flags uses # symbol like #key followed by the value. Sample:
+
+zeal pack #customer someCustomer
+
+customer settings on the config file will be replaced with someCustomer.
+
+settings specified at earlier levels can be overriden at later levels.
+? Find a better way to explain this :)
 
 ## Repo
 

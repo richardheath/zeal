@@ -51,10 +51,14 @@ version per target customer for multi tenant deployment strategy.
 
 > ### files
 > Files that will be included on the package and its path relative to destination folder.
-Array
-Glob definition on files to add on the package. The full path of each file/folder included will be based on basePath.
-Object
-	The key is the files to add on the package and value is the destination path.
+
+> #### Array
+
+> Glob rules on files to add on the package. The full path of each file/folder included will be based on basePath.
+
+> #### Object
+
+>The key is the files to add on the package and value is the destination path.
 
 > ### exclude
 >Array of regex rules on files to exclude from the package.
