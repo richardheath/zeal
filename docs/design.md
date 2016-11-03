@@ -1,4 +1,4 @@
-# Design
+# CLI Design
 
 ## pack
 Config file to package. If config file is not supplied, then zeal will use zeal.json file as default.
@@ -34,7 +34,32 @@ options:
 
 --all - Uninstall all installed versions on the machine.
 
-## Settings Feature
+## repo
+
+List supported repository types. 
+
+usage: repo list
+
+Commands available per repository type. Options provided will be passed to repository handler.
+
+usage: repo repoType [get,set,delete,list] repo.name --options
+
+--username
+
+--password
+
+--type
+
+--artifact nameOfArtifactType
+
+## Config
+Set zeal configuration.
+
+usage: config [get,set,delete,list] configKey configValue
+
+# Features
+
+## Settings
 
 Commands pack, publish, install, uninstall, and start accepts settings flags. 
 These flags uses # symbol like #key followed by the value. Sample:
@@ -46,30 +71,13 @@ customer settings on the config file will be replaced with someCustomer.
 settings specified at earlier levels can be overriden at later levels.
 ? Find a better way to explain this :)
 
-## Repo
+## Extendable Supported Repo
 
-## Extensions
-Extend command line to support other artifact creation like state?
+Design repo download/publish structure to support multiple repository types.
+Repository handlers are separate cli app that implements the standard that zeal specifies. 
 
-## Repo
-repo [get,set,delete,list] repo.name --options
+## Locked Versions On Package Creation
 
---username
-
---password
-
---type
-
---artifact nameOfArtifactType
-
-## Config
-Add [target] value
-
-Add or update if it doesn’t exist.
- 
-Set [target] value
-
-Don’t need just use ADD
- 
-Remove [target] value
-  
+Configuration specification supports gettings latest. When a package is created zeal will
+get latest from repo and lock it in. This way the artifact dependencies doesn't change
+when installed from environment to environment.

@@ -2,24 +2,9 @@
     "name": "packageName",
     "description": "",
     "version": "",
-    "multiVersionRule": ["major","minor", "p3-n", "{{group}}", "* - any version", "empty - dont allow"],
-    "packagePerOS": true,
+    "multiVersionRule": "major",
+    "targetOS": true,
     "author": "",
-    "contents": {
-        "basePath": "",
-        "destination": "",
-        "files": [],
-        "filesByOS": {
-            "win": [
-                "bin/*dll"
-            ],
-            "lin": {
-                "bin/*.dll": "bin",
-                "bin/release/*.dll": "bin"
-            }
-        },
-        "exclude": []
-    },
     "scripts": {
         "preinstall": "powershell setupSomething {eventMetadata}",
         "installed": "powershell setupSomething {version}",
@@ -35,8 +20,16 @@
         "nameOfDep": "1.0.0",
         "latest": "1.0.*"
     },
-    "settingsDescription": {
-        "settingsKey": "description on what it is for :)"
+    "lockedDependencies": {
+        "nameOfDep": "1.0.0",
+        "latest": "1.0.20"
+    },
+    "packageFiles": {
+        "os": [
+            "files",
+            "files/{settingsKey}/file.txt",
+            "still honor settings"
+        ]
     },
     "metadata": {
         "kayValue": "Of Custom metadata"
