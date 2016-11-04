@@ -52,10 +52,13 @@ usage: repo repoType [get,set,delete,list] repo.name --options
 
 --artifact nameOfArtifactType
 
-## Config
+## config
 Set zeal configuration.
 
 usage: config [get,set,delete,list] configKey configValue
+
+## query
+Query zeal metadata.
 
 # Features
 
@@ -81,3 +84,9 @@ Repository handlers are separate cli app that implements the standard that zeal 
 Configuration specification supports gettings latest. When a package is created zeal will
 get latest from repo and lock it in. This way the artifact dependencies doesn't change
 when installed from environment to environment.
+
+## Split Package Per Target OS
+
+Useful for compiled languages that have different binaries per target OS.
+
+## 
