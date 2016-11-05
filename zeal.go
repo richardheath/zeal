@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/richardheath/cli"
@@ -8,11 +9,9 @@ import (
 )
 
 func main() {
-	var baseCommand = cli.Command{
-		Path: "",
-		Commands: []cli.Command{
-			command.InitPackCommand(),
-		},
+	app := cli.App{
+		Name:    "zeal",
+		Version: "0.1.0",
 		FlagGroups: []cli.FlagGroup{
 			cli.FlagGroup{
 				Prefix:          "--",
@@ -21,9 +20,14 @@ func main() {
 			},
 		},
 		FlagTypes: nil,
-		Action:    nil,
+		Commands: []cli.Command{
+			command.InitPackCommand(),
+		},
 	}
 
-	args := os.Args[1:]
-	cli.Run("zeal", "0.1.0", args, baseCommand)
+	err := app.Run(os.Args[1:])
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }

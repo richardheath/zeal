@@ -5,10 +5,9 @@ import (
 )
 
 func InitPackCommand() cli.Command {
-    return cli.Command{
-		Path:     "pack",
-		Commands: []cli.Command{},
-		FlagGroups: nil,
+	return cli.Command{
+		Path:      []string{"pack"},
+		Commands:  []cli.Command{},
 		FlagTypes: nil,
 		Action:    nil,
 	}
