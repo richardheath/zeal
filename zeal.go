@@ -16,6 +16,11 @@ func main() {
 			cli.FlagGroup{
 				Prefix:          "--",
 				ShorthandPrefix: "-",
+				Group:           "options",
+			},
+			cli.FlagGroup{
+				Prefix:          "#",
+				ShorthandPrefix: "",
 				Group:           "settings",
 			},
 		},
