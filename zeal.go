@@ -12,16 +12,16 @@ func main() {
 	app := cli.App{
 		Name:    "zeal",
 		Version: "0.1.0",
-		FlagGroups: []cli.FlagGroup{
-			cli.FlagGroup{
-				Prefix:          "--",
-				ShorthandPrefix: "-",
-				Group:           "options",
+		FlagPrefixes: []cli.FlagPrefix{
+			cli.FlagPrefix{
+				Key:         "--",
+				Shorthand:   "-",
+				Description: "options",
 			},
-			cli.FlagGroup{
-				Prefix:          "#",
-				ShorthandPrefix: "",
-				Group:           "settings",
+			cli.FlagPrefix{
+				Key:         "#",
+				Shorthand:   "",
+				Description: "settings",
 			},
 		},
 		FlagTypes: nil,
