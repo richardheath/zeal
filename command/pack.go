@@ -22,18 +22,18 @@ func InitPackCommand() cli.Command {
 		Commands: []cli.Command{
 			cli.Command{
 				Path: []string{"{{--configPath}}"},
-				Action: func(app cli.App, knownFlags map[string]string, unknownFlags map[string]string) error {
+				Action: func(flags cli.ProcessedFlags) error {
 					fmt.Println("pack --configPath")
-					fmt.Println(knownFlags)
-					fmt.Println(unknownFlags)
+					fmt.Println(flags.Known)
+					fmt.Println(flags.Unknown)
 					return nil
 				},
 			},
 		},
-		Action: func(app cli.App, knownFlags map[string]string, unknownFlags map[string]string) error {
+		Action: func(flags cli.ProcessedFlags) error {
 			fmt.Println("pack default")
-			fmt.Println(knownFlags)
-			fmt.Println(unknownFlags)
+			fmt.Println(flags.Known)
+			fmt.Println(flags.Unknown)
 			return nil
 		},
 	}

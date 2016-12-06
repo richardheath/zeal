@@ -26,12 +26,12 @@ func InitPublishCommand() cli.Command {
 		Commands: []cli.Command{
 			cli.Command{
 				Path: []string{"{{--configPath}}"},
-				Action: func(app cli.App, knownFlags map[string]string, unknownFlags map[string]string) error {
+				Action: func(flags cli.ProcessedFlags) error {
 					return nil
 				},
 			},
 		},
-		Action: func(app cli.App, knownFlags map[string]string, unknownFlags map[string]string) error {
+		Action: func(flags cli.ProcessedFlags) error {
 			return nil
 		},
 	}

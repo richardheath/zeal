@@ -9,25 +9,23 @@ import (
 )
 
 func main() {
-	app := cli.App{
-		Name:    "zeal",
-		Version: "0.1.0",
-		FlagPrefixes: []cli.FlagPrefix{
-			cli.FlagPrefix{
-				Key:         "--",
-				Shorthand:   "-",
-				Description: "options",
-			},
-			cli.FlagPrefix{
-				Key:         "#",
-				Shorthand:   "",
-				Description: "settings",
-			},
+	app := cli.NewApp("zeal", "0.1.0")
+
+	app.FlagPrefixes = []cli.FlagPrefix{
+		cli.FlagPrefix{
+			Key:         "--",
+			Shorthand:   "-",
+			Description: "options",
 		},
-		FlagTypes: nil,
-		Commands: []cli.Command{
-			command.InitPackCommand(),
+		cli.FlagPrefix{
+			Key:         "#",
+			Shorthand:   "",
+			Description: "settings",
 		},
+	}
+
+	app.Commands = []cli.Command{
+		command.InitPackCommand(),
 	}
 
 	err := app.Run(os.Args[1:])
