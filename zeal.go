@@ -26,6 +26,7 @@ func main() {
 
 	app.Commands = []cli.Command{
 		command.InitPackCommand(),
+		command.InitConfigCommand(),
 	}
 
 	err := app.Run(os.Args[1:])
