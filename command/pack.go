@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/richardheath/cli"
+	"github.com/richardheath/zeal/log"
 )
 
 func InitPackCommand() cli.Command {
@@ -23,9 +24,7 @@ func InitPackCommand() cli.Command {
 			cli.Command{
 				Path: []string{"{{--configPath}}"},
 				Action: func(flags cli.ProcessedFlags) error {
-					fmt.Println("pack --configPath")
-					fmt.Println(flags.Known)
-					fmt.Println(flags.Unknown)
+					log.Info("pack")
 					return nil
 				},
 			},

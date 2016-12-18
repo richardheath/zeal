@@ -8,4 +8,5 @@ type Config struct {
 	TempPath    string
 	DefaultRepo string
 	LogLevel    string
+	MaxTempSize int
 }
