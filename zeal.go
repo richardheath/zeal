@@ -6,15 +6,19 @@ import (
 
 	"github.com/richardheath/cli"
 	"github.com/richardheath/zeal/command"
+	"github.com/richardheath/zeal/config"
 	"github.com/richardheath/zeal/log"
 )
 
 func main() {
-	err := log.Initialize()
+	err := config.Initialize()
 	if err != nil {
-		fmt.Println("Failed to initialize logger:")
-		fmt.Println(err)
-		os.Exit(1)
+		exitWithError("Failed to initialize config:", err)
+	}
+
+	err = log.Initialize()
+	if err != nil {
+		exitWithError("Failed to initialize logger:", err)
 	}
 
 	app := cli.NewApp("zeal", "0.1.0")
@@ -39,8 +43,12 @@ func main() {
 	err = app.Run(os.Args[1:])
 
 	if err != nil {
-		fmt.Println("Command failed:")
-		fmt.Println(err)
-		os.Exit(1)
+		exitWithError("Command failed:", err)
 	}
+}
+
+func exitWithError(message string, err error) {
+	fmt.Println(message)
+	fmt.Println(err)
+	os.Exit(1)
 }
