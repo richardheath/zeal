@@ -1,0 +1,22 @@
+{
+    "name": "packageName",
+    "description": "",
+    "version": "",
+    "author": "",
+    "contents": {
+        "basePath": "",
+        "destination": "",
+        "files": [],
+        "exclude": []
+    },
+    "scripts": {
+        "preinstall": "powershell setupSomething {eventMetadata}",
+        "installed": "powershell setupSomething {version}",
+        "preuninstall": "",
+        "uninstalled": "",
+        "error": ""
+    },
+    "metadata": {
+        "kayValue": "Of Custom metadata"
+    }
+}
