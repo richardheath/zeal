@@ -1,0 +1,26 @@
+{
+    "name": "multiOS",
+    "version": "1.0.0",
+    "contents": {
+        "files": [ "src/*dll"]
+    },
+    "osOverride": {
+        "linux": {
+            "contents": {
+                "destination": "/temp"
+            },
+            "scripts": {
+                "start": "call bash"
+            }
+        },
+        "windows": {
+            "contents": {
+                "destination": "c:\\temp"
+            },
+            "scripts": {
+                "start": "call powershell"
+            }
+        }
+
+    }
+}

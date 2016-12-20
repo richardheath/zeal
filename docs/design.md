@@ -21,7 +21,8 @@ Repository handlers are separate cli app that implements the standard that zeal 
 
 Configuration specification supports gettings latest. When a package is created zeal will
 get latest from repo and lock it in. This way the artifact dependencies doesn't change
-when installed from environment to environment.
+when installed from environment to environment. When dependencies change package should be rebuilt with new
+dependencies. This way changes are fully traceable.
 
 ## Split Package Per Target OS
 

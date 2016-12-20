@@ -86,6 +86,9 @@ key/value of package dependencies. Key is the package name and value is the vers
 
 >  \* - Get latest
 
+## settings
+Settings configuration. This allows package to have default value or description for package settings.
+
 ## Metadata
 Key/value metadata info about the package.
 
@@ -94,3 +97,5 @@ Key/value metadata info about the package.
 ## Multiplatform Support
 When destination is string it will be used on every platform
 When destination is object the key is one of the supported platform key
+
+Use osOverride to support multiplatform. This way all fields can be overriden based on target OS. It also looks cleaner.
