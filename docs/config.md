@@ -3,14 +3,15 @@
 ## name
 Name of the package.
 
+## description
+
 ## version
 Package version.
 
-## multiVersionRule
+## keep
 Rule that zeal will use to determine if previously installed version needs 
 to be uninstalled before installing new version of the package. 
 If currently installed doesn’t need to be uninstalled then multiple version will be installed on machine.
-
 
 > ### major
 >Uninstall current version if they have same major version. Otherwise
@@ -37,31 +38,26 @@ multi version can exist as long as they have different settingsKey value.
 This can be used for custom indicator like {{customer}} which allows multiple
 version per target customer for multi tenant deployment strategy.
 
-## description
+
 
 ## author
 
-## contents
+## destination
+Destination path where files will be installed on the target server. Empty path will be relative to current directory.
 
-> ### basePath
-> Base path that will be used in files. This is relative to config directory.
+## files
+Files that will be included on the package and its path relative to destination folder.
 
-> ### destination
-> Base destination path where files will be installed on the target server. Empty path will be relative to current directory.
-
-> ### files
-> Files that will be included on the package and its path relative to destination folder.
-
-> #### Array
+### Array
 
 > Glob rules on files to add on the package. The full path of each file/folder included will be based on basePath.
 
-> #### Object
+### Object
 
->The key is the files to add on the package and value is the destination path.
+> The key is the files to add on the package and value is the destination path.
 
-> ### exclude
->Array of regex rules on files to exclude from the package.
+## exclude
+Array of regex rules on files to exclude from the package.
 
 ## scripts
 Scripts are automatically executed based on event lifecycle of a project.
@@ -89,13 +85,9 @@ key/value of package dependencies. Key is the package name and value is the vers
 ## settings
 Settings configuration. This allows package to have default value or description for package settings.
 
-## Metadata
+## metadata
 Key/value metadata info about the package.
 
-# Other
+## override
 
-## Multiplatform Support
-When destination is string it will be used on every platform
-When destination is object the key is one of the supported platform key
-
-Use osOverride to support multiplatform. This way all fields can be overriden based on target OS. It also looks cleaner.
+Give capability to override config based on target OS or force override using install flag.

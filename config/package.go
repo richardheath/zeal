@@ -1,27 +1,24 @@
 package config
 
+// Package Zeal package configuration.
 type Package struct {
-	name             string
-	description      string
-	version          string
-	multiVersionRule string
-	splitPerOS       bool
-	author           string
-	contents         PackageContents
-	scripts          map[string][]string
-	dependencies     string
-	settings         []PackageSetting
-	metadata         map[string]string
-	osOverride       map[string]Package
+	name         string
+	description  string
+	version      string
+	keep         string
+	split        bool
+	author       string
+	destination  string
+	files        map[string]string
+	exclude      []string
+	scripts      map[string][]string
+	dependencies string
+	settings     []PackageSetting
+	metadata     map[string]string
+	override     map[string]Package
 }
 
-type PackageContents struct {
-	basePath    string
-	destination string
-	files       string
-	exclude     string
-}
-
+// PackageSetting Zeal package setting configuration.
 type PackageSetting struct {
 	defaultValue string
 	description  string

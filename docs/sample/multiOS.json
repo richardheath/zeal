@@ -1,26 +1,21 @@
 {
     "name": "multiOS",
     "version": "1.0.0",
-    "contents": {
-        "files": [ "src/*dll"]
-    },
-    "osOverride": {
+    "split": true,
+    "override": {
         "linux": {
-            "contents": {
-                "destination": "/temp"
-            },
+            "files": ["bin/multiOS"],
+            "destination": "/temp",
             "scripts": {
                 "start": "call bash"
             }
         },
         "windows": {
-            "contents": {
-                "destination": "c:\\temp"
-            },
+            "files": ["bin/multiOS.exe"],
+            "destination": "c:\\temp",
             "scripts": {
                 "start": "call powershell"
             }
         }
-
     }
 }
