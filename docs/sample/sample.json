@@ -5,9 +5,10 @@
     "keep": "major",
     "author": "author",
     "destination": "",
-    "files": [
-        "bin/*dll"
-    ],
+    "files": {
+        "public/*": "samplePackage/{version}/public",
+        "bin/release/*.dll": "samplePackage/{version}/bin"
+    },
     "exclude": [],
     "scripts": {
         "preinstall": "powershell Write-Host {message}",
