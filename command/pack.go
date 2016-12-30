@@ -1,10 +1,8 @@
 package command
 
 import (
-	"fmt"
-
 	"github.com/richardheath/cli"
-	"github.com/richardheath/zeal/log"
+	"github.com/richardheath/zeal/pack"
 )
 
 func InitPackCommand() cli.Command {
@@ -20,20 +18,18 @@ func InitPackCommand() cli.Command {
 				Validators: []cli.FlagValidator{},
 			},
 		},
+		Action: func(flags cli.ProcessedFlags) error {
+			pack.Pack(flags.Known["--configPath"], "c:\\temp", flags.Unknown)
+			return nil
+		},
 		Commands: []cli.Command{
 			cli.Command{
 				Path: []string{"{{--configPath}}"},
 				Action: func(flags cli.ProcessedFlags) error {
-					log.Info("pack")
+					pack.Pack(flags.Known["--configPath"], "c:\\temp", flags.Unknown)
 					return nil
 				},
 			},
-		},
-		Action: func(flags cli.ProcessedFlags) error {
-			fmt.Println("pack default")
-			fmt.Println(flags.Known)
-			fmt.Println(flags.Unknown)
-			return nil
 		},
 	}
 }

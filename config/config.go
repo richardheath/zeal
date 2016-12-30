@@ -10,12 +10,12 @@ import (
 
 // Config Configuration that zeal will use when running commands.
 type Config struct {
-	DataPath    string
-	LogsPath    string
-	TempPath    string
-	DefaultRepo string
-	MaxLogsSize int
-	MaxTempSize int
+	DataPath    string `json:"dataPath"`
+	LogsPath    string `json:"logsPath"`
+	TempPath    string `json:"tempPath"`
+	DefaultRepo string `json:"defaultRepo"`
+	MaxLogsSize int    `json:"maxLogsSize"`
+	MaxTempSize int    `json:"maxTempSize"`
 }
 
 const (
