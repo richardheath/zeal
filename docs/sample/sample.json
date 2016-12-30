@@ -11,8 +11,8 @@
     },
     "exclude": [],
     "scripts": {
-        "preinstall": "powershell Write-Host {message}",
-        "installed": "powershell Write-Host {message}"
+        "preinstall": ["powershell Write-Host {message}"],
+        "installed": ["powershell Write-Host {message}"]
     },
     "dependencies": {
         "nameOfDep": "1.0.0",
