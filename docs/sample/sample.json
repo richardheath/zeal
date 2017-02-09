@@ -1,22 +1,24 @@
 {
     "name": "samplePackage",
-    "description": "Sample package.",
+    "description": "Sample package.{#message}",
     "version": "1.0.0",
     "keep": "major",
     "author": "author",
-    "destination": "",
+    "destination": "/test",
     "files": {
-        "public/*": "samplePackage/{version}/public",
-        "bin/release/*.dll": "samplePackage/{version}/bin"
+        "public/*": "samplePackage/{#version}/public",
+        "bin/release/*.dll": "{#message}/samplePackage/{#version}/bin"
     },
     "exclude": [],
     "scripts": {
-        "preinstall": ["powershell Write-Host {message}"],
-        "installed": ["powershell Write-Host {message}"]
+        "preinstall": ["powershell Write-Host {#message}"],
+        "installed": ["powershell Write-Host {#message}"]
     },
     "dependencies": {
-        "nameOfDep": "1.0.0",
-        "latest": "1.0.*"
+        "zeal": {
+            "nameOfDep": "1.0.0",
+            "latest": "1.0.*"
+        }
     },
     "settings": {
         "message": {
@@ -25,6 +27,7 @@
         }
     },
     "metadata": {
-        "repo": "https://github.com/richardheath/zeal"
+        "repo": "https://github.com/richardheath/zeal",
+        "token": "package: {$name}-{$version}"
     }
 }

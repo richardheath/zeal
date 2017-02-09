@@ -74,4 +74,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# VS Code
+launch.json
+
+# Debug
 debug
+debug~
