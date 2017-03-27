@@ -15,15 +15,23 @@
         "installed": ["powershell Write-Host {#message}"]
     },
     "dependencies": {
-        "zeal": {
+        "package": {
             "nameOfDep": "1.0.0",
             "latest": "1.0.*"
+        },
+        "service": {
+            "service1": "1.0.0"
         }
     },
     "settings": {
         "message": {
             "default": "Hello",
             "description": "Greetings"
+        },
+        "test": {
+            "default": "",
+            "allowEmpty": true,
+            "description": "This setting allows empty string."
         }
     },
     "metadata": {

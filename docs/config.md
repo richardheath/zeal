@@ -60,13 +60,24 @@ Scripts are automatically executed based on event lifecycle of a project.
 Object key must be one of the supported platform key and array for the script to use
 
 ## Events
+Supported package events that are triggered on its life cycle.
+
+### Install Events
 * preinstall - runs before package is installed.
 * installed - runs after package is installed.
+* installError - called when install failed.
+
+### Uninstall Events
 * preuninstall - runs before package is uninstalled.
 * uninstalled - runs after package is uninstalled.
-* error - runs when install fails.
-* prestart - runs before service start
-* start - script to run to start service
+* uninstallError - called when uninstall fails.
+
+### Runtime Events
+* start - script to start package.
+* startError - called when start fails.
+* stop - script to stop package.
+* stopError - called when stop fails.
+
 
 ## dependencies
 key/value of package dependencies. Key is the package name and value is the version number needed. (*) Asterisk is used in version number to get latest on version section.

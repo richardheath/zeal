@@ -59,3 +59,17 @@ usage: config [get,set,delete,list] configKey configValue
 
 ## query
 Query zeal metadata.
+
+## start
+Start a package.
+
+## stop
+Stop a package.
+
+## build
+
+Build package.
+
+## test
+
+Test package.
