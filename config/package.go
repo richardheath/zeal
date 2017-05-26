@@ -29,6 +29,7 @@ type Package struct {
 // PackageSetting Zeal package setting configuration.
 type PackageSetting struct {
 	Default     string `json:"default"`
+	AllowEmpty  bool   `json:"allowEmpty"`
 	Description string `json:"description"`
 }
 
@@ -62,11 +63,52 @@ func (config *Package) ReplaceTokens(settings map[string]string) {
 
 // ReplaceWithDefaultTokens Replace tokens with default settings for given fields.
 func (config *Package) ReplaceWithDefaultTokens(fields []string) {
+	for name, setting := range config.Settings {
+		for _, field := range fields {
+			if setting.Default == "" && setting.AllowEmpty == false {
+				// Do not replace tokens where empty is not allowed.
+				continue
+			}
+
+			key := "#" + name
+			config.replaceFieldToken(field, key, setting.Default)
+		}
+	}
 }
 
 // EnsureNoTokens Ensure provided fields have no tokens.
 func (config *Package) EnsureNoTokens(fields []string) error {
 	return nil
+}
+
+func (config *Package) replaceFieldToken(field string, key string, value string) {
+	var target reflect.Value
+	switch field {
+	case "name":
+		target = reflect.ValueOf(config.Name)
+	case "description":
+		target = reflect.ValueOf(config.Description)
+	case "version":
+		target = reflect.ValueOf(config.Version)
+	case "destination":
+		target = reflect.ValueOf(config.Destination)
+	case "files":
+		target = reflect.ValueOf(config.Files)
+	case "exclude":
+		target = reflect.ValueOf(config.Exclude)
+	case "scripts":
+		target = reflect.ValueOf(config.Scripts)
+	case "dependencies":
+		target = reflect.ValueOf(config.Dependencies)
+	case "settings":
+		target = reflect.ValueOf(config.Settings)
+	case "metadata":
+		target = reflect.ValueOf(config.Metadata)
+	case "override":
+		target = reflect.ValueOf(config.Override)
+	}
+
+	replaceTokens(target, key, value)
 }
 
 func (config *Package) getSettingConfig(key string) (PackageSetting, bool) {

@@ -7,7 +7,7 @@ Zeal config is designed to be single source of truth within the lifecycle of the
 ## Package Lifecycle
 
 Zeal can be used to automate full lifecyle of package which includes building,
-deployment, and runtime. Zeal is focused on deployment. Build and runtime
+deployment, and runtime. Zeal is focused on deployment. Build and runtime events
 can be used to facilitate automation.
 
 * Build
