@@ -1,4 +1,32 @@
-# Features
+# Refactored Features
+
+## Package Server
+
+Zeal server store metadata and actual files separately so they can be capture separately.
+
+State file can be stored locally or stored on a state server. This is
+useful to keep state of short lived servers?
+
+## Use terraform's variable syntax
+
+Can also specify command specific variables
+
+## Configuration can be separated
+
+Configs can be separated on multiple files.
+
+## Reserved options
+
+- dependencies
+- variables
+
+## Package Contents/Use
+
+Package items are stored on package. You can pick and choose 
+items needed for install.
+
+# Old Design
+
 
 ## Single Source Of Truth
 
