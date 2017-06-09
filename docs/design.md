@@ -25,6 +25,22 @@ Configs can be separated on multiple files.
 Package items are stored on package. You can pick and choose 
 items needed for install.
 
+## Limit commands
+build
+install
+    uninstall is determined by this
+package
+run
+    more generic. Can be used to run test/service
+
+## Dependencies
+
+Explicit/Implicit Dependencies
+
+Explicit dependencies are defined by [command] dependencies [type_provider]
+
+Implicit are difined by command provider
+
 # Old Design
 
 
