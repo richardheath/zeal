@@ -1,24 +1,24 @@
-# Refactored Features
+Zeal
+====
+
+Zeal config is designed to facilitate lifecycle of packages.
 
 ## Package Server
 
 Zeal server store metadata and actual files separately so they can be capture separately.
 
 State file can be stored locally or stored on a state server. This is
-useful to keep state of short lived servers?
-
-## Use terraform's variable syntax
-
-Can also specify command specific variables
+useful to keep state of serverless deployments?
 
 ## Configuration can be separated
 
 Configs can be separated on multiple files.
 
-## Reserved options
+## Reserved extension names
 
 - dependencies
 - variables
+- settings
 
 ## Package Contents/Use
 
@@ -26,20 +26,21 @@ Package items are stored on package. You can pick and choose
 items needed for install.
 
 ## Limit commands
-build
-install
-    uninstall is determined by this
-package
-run
-    more generic. Can be used to run test/service
+- build
+- package
+- install
+    - uninstall: implicit command based on install
+- run
+    - stop: implicit command based on run
+    - Can be used to run the package. It can be a service, test, etc.
 
 ## Dependencies
 
 Explicit/Implicit Dependencies
 
-Explicit dependencies are defined by [command] dependencies [type_provider]
+Explicit dependencies are defined by [extension] dependencies
 
-Implicit are difined by command provider
+Implicit are difined by command extension
 
 # Old Design
 
@@ -82,13 +83,6 @@ Configuration specification supports gettings latest. When a package is created 
 get latest from repo and lock it in. This way the artifact dependencies doesn't change
 when installed from environment to environment. When dependencies change package should be rebuilt with new dependencies. This way changes are fully traceable.
 
-## Split Package Per Target OS
-
-Ability to split package per OS. Useful for compiled languages that have different binaries per target OS.
-
-possible repo structure so this can be supported:
-package_name/release/patch/@target/package.tar.gz
-
 ## Dependencies
 
 Dependencies config accepts multiple dependency types but zeal only recognize packages
@@ -96,14 +90,11 @@ dependency type. Different types are up to users needs. One use case is having s
 dependencies. This metadata can be used by deployment orchestrator to ensure services
 that the package depends on are up and running.
 
-# Design
+## Settings
 
-## Zeal Path
+### Package
 
-data - zeal metadata - do not manually modify 
-
-logs - regular log files
-
-temp - packages tar.gz files / extracted / script files are stored.
-
-plugins - zeal plugins for supported repo.
+#### name
+Package name.
+#### locked_dependencies
+All dependencies are locked down when installed 

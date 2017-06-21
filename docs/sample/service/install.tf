@@ -3,7 +3,7 @@ Here's how you can control which files to deploy based on
 os and environment.
 
 os is standard Go OS result.
-environment is is from ZEAL_environment environment variable.
+environment is from ZEAL_environment environment variable.
 */
 install "contents" "windows" {
     os = "windows"
@@ -28,17 +28,11 @@ install "bin" "service" {
     target_path = "${first("service.*")}"
 }
 
-install "dependencies" "zeal" {
+install "dependencies" {
     package1 = {
         version = "1.0.0"
     }
     package2 = {
         version = "2.0.0"
-    }
-}
-
-install "dependencies" "npm" {
-    npmpackage1 = {
-        version = "1.0.0"
     }
 }
