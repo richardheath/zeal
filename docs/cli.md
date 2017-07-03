@@ -1,5 +1,5 @@
 # CLI Design
-
+ 
 ## pack
 Config file to package. If config file is not supplied, then zeal will use zeal.json file as default.
 
