@@ -1,6 +1,10 @@
 # CLI Design
- 
-## pack
+
+build/test/package use config path which defaults to zeal folder
+
+The rest will use zeal package metadata
+
+## package
 Config file to package. If config file is not supplied, then zeal will use zeal.json file as default.
 
 usage: pack [configPath]

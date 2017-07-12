@@ -1,18 +1,96 @@
 Zeal
 ====
 
-Zeal config is designed to facilitate lifecycle of packages.
+With the explosion of different tools and languages, Zeal aims to
+be the common denominator to simplify development, packaging,
+installation and running of packages. Zeal is the abstraction 
+point of package lifecyle using idempotent scripts.
 
-## Package Server
+This can be used to simplify DevOps work. It doesn't matter
+what technology is used the project is built using `zeal build`.
+This can also simplify CICD since the build job just needs to run
+the same command.
 
-Zeal server store metadata and actual files separately so they can be capture separately.
+# Configuration
 
-State file can be stored locally or stored on a state server. This is
-useful to keep state of serverless deployments?
+## Basic Config Structure
+
+Each section of zeal config is composed of command, extension,
+name, and options. Name is any text that means something to user 
+which can be used to access output when using interpolation.
+
+```
+[command] [extension] [name] {
+    [options]
+}
+```
+
+## Terraform/HCL Syntax
+
+Zeal will use HCL syntax for config files. Interpolation syntax
+will also be supported.
 
 ## Configuration can be separated
 
 Configs can be separated on multiple files.
+
+# Commands
+
+Package lifecyle is expressed as commands in Zeal. A package
+lifecyle is composed of build, package, install, and run.
+
+## build
+
+This abstract building of package like compiling, 
+linting etc. This step ensures that package files are in good 
+condition. This step is usually executed before packaging but
+some packages don't need builds like static files.
+
+## test
+
+## package
+
+This abstracts creation of deployable package.
+
+## install
+
+Install configuration defines extentions used on how to install
+a package. Install extensions can implicitly specify uninstall
+instructions.
+
+```
+zeal install package-1.0.0
+```
+
+## uninstall
+
+Usually install extensions will automatically specify uninstall
+extensions to use. Extra uninstall can be specified for extra
+clean up instructions like clearing logs.
+
+## run
+
+Abstraction on how package can be executed.
+
+```
+zeal package_name run
+zeal package_name run #message hello
+```
+
+## stop
+
+Stop running package.
+
+# Extentions
+
+Extensions are executables that will handle the options 
+of zeal configuration.
+
+## Extension Registry
+
+Zeal cli will download extensions from registry. Registry
+can point to local registry to control what extensions can
+be used.
 
 ## Reserved extension names
 
@@ -20,21 +98,23 @@ Configs can be separated on multiple files.
 - variables
 - settings
 
-## Package Contents/Use
+## Extensions Can Create Zeal Config
 
-Package items are stored on package. You can pick and choose 
-items needed for install.
+An extension can create another extension config. Sample
+usecase is for install extension telling zeal on how to
+uninstall by giving uninstall instructions using zeal config.
 
-## Limit commands
-- build
-- package
-- install
-    - uninstall: implicit command based on install
-- run
-    - stop: implicit command based on run
-    - Can be used to run the package. It can be a service, test, etc.
+implicit configs.
 
-## Dependencies
+## Metadata
+
+### Output
+
+Extensions can give output data that other extensions can use.
+
+### Dependencies
+
+Extensions can also specify package dependencies.
 
 Explicit/Implicit Dependencies
 
@@ -49,20 +129,6 @@ Implicit are difined by command extension
 
 Zeal config is designed to be single source of truth within the lifecycle of the package.
 
-## Package Lifecycle
-
-Zeal can be used to automate full lifecyle of package which includes building,
-deployment, and runtime. Zeal is focused on deployment. Build and runtime events
-can be used to facilitate automation.
-
-* Build
-* Test
-* Package
-* Install
-* Uninstall
-* Start
-* Stop
-
 ## Settings
 
 All commands that affects packages support settings. These are key value pairs
@@ -72,29 +138,11 @@ supplied as CLI parameters. Settings flags starts with # symbol followed by its 
 Sample:
 zeal pack #environment dev #port 8080
 
-## Extendable Supported Repo
-
-Zeal will support multiple repo types. Each repo will have it's own config that
-is outside of zeal. Repo extensions follows contract that zeal expects.
-
 ## Locked Versions On Package Creation
 
 Configuration specification supports gettings latest. When a package is created zeal will
 get latest from repo and lock it in. This way the artifact dependencies doesn't change
 when installed from environment to environment. When dependencies change package should be rebuilt with new dependencies. This way changes are fully traceable.
 
-## Dependencies
-
-Dependencies config accepts multiple dependency types but zeal only recognize packages
-dependency type. Different types are up to users needs. One use case is having service
-dependencies. This metadata can be used by deployment orchestrator to ensure services
-that the package depends on are up and running.
-
-## Settings
-
-### Package
-
-#### name
-Package name.
 #### locked_dependencies
 All dependencies are locked down when installed 
