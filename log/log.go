@@ -54,7 +54,7 @@ func Debugf(format string, a ...interface{}) {
 }
 
 func newLogFile() (io.Writer, error) {
-	globalConfig := config.GetConfig()
+	globalConfig := config.GetZealConfig()
 	logsPath := globalConfig.LogsPath
 
 	if _, err := os.Stat(logsPath); os.IsNotExist(err) {
