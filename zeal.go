@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/richardheath/cli"
-	"github.com/richardheath/zeal/command"
 	"github.com/richardheath/zeal/config"
 	"github.com/richardheath/zeal/log"
 )
@@ -31,17 +30,13 @@ func main() {
 		cli.FlagPrefix{
 			Key:         "#",
 			Shorthand:   "",
-			Description: "settings",
+			Description: "variables",
 		},
 	}
 
-	app.Commands = []cli.Command{
-		command.InitPackCommand(),
-		command.InitConfigCommand(),
-	}
-
+	app.Commands = generateCliCommands()
 	err = app.Run(os.Args[1:])
-
+	
 	if err != nil {
 		exitWithError("Command failed:", err)
 	}
