@@ -1,89 +1,46 @@
 package config
 
-import (
-	"encoding/json"
-	"io/ioutil"
-	"os"
-	"os/user"
-	"path"
-)
-
-// Config Configuration that zeal will use when running commands.
+// Config type
 type Config struct {
-	DataPath    string `json:"dataPath"`
-	LogsPath    string `json:"logsPath"`
-	TempPath    string `json:"tempPath"`
-	DefaultRepo string `json:"defaultRepo"`
-	MaxLogsSize int    `json:"maxLogsSize"`
-	MaxTempSize int    `json:"maxTempSize"`
+	items []Item
 }
 
-const (
-	configFileName = "zeal.json"
-	zealFolder     = "zeal"
-	dataFolder     = "data"
-	logsFolder     = "logs"
-	tempFolder     = "temp"
-	defaultRepo    = "files"
-)
-
-var config *Config
-
-// Initialize Initialize zeal configuration.
-func Initialize() error {
-	configFile, err := getConfigFilePath()
-	if err != nil {
-		return err
-	}
-
-	err = loadConfigFile(configFile)
-	if err != nil {
-		return err
-	}
-
-	return nil
+// Item a config item on zeal config
+type Item struct {
+	ID string
+	Command string
+	Extension string
+	Name string
+	Options map[string]interface{}
 }
 
-// GetConfig Get zeal global configuration.
-func GetConfig() *Config {
-	return config
-}
-
-func loadConfigFile(filePath string) error {
-	defaultConfig := getDefaultConfig()
-	config = &defaultConfig
-
-	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-		return nil
+// Filter Filter config items. Use empty string to skip filter on field
+// Sample config.Filter("build", "", "") // Only filter builds
+func (config *Config) Filter(command string, extension string, name string) []Item {
+	result := []Item{}
+	if command != "" {
+		for _, item := range config.items {
+			if command == item.Command {
+				result = append(result, item)
+			}
+		}
 	}
 
-	rawConfig, err := ioutil.ReadFile(filePath)
-	if err != nil {
-		return err
+	if extension != "" {
+		for _, item := range config.items {
+			if extension == item.Extension {
+				result = append(result, item)
+			}
+		}
 	}
 
-	json.Unmarshal(rawConfig, config)
-	return nil
-}
-
-func getDefaultConfig() Config {
-	usr, _ := user.Current()
-	base := path.Join(usr.HomeDir, zealFolder)
-	return Config{
-		DataPath:    path.Join(base, dataFolder),
-		LogsPath:    path.Join(base, logsFolder),
-		TempPath:    path.Join(base, tempFolder),
-		DefaultRepo: defaultRepo,
-		MaxLogsSize: 1000,
-		MaxTempSize: 10000,
-	}
-}
-
-func getConfigFilePath() (string, error) {
-	usr, err := user.Current()
-	if err != nil {
-		return "", err
+	if name != "" {
+		for _, item := range config.items {
+			if name == item.Name {
+				result = append(result, item)
+			}
+		}
 	}
 
-	return path.Join(usr.HomeDir, configFileName), nil
+	return result
 }
