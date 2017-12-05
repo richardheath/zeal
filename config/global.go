@@ -14,6 +14,7 @@ type ZealConfig struct {
 	LogsPath    string `json:"logsPath"`
 	TempPath    string `json:"tempPath"`
 	DefaultRepo string `json:"defaultRepo"`
+	Registry	string `json:"registry"`
 	MaxLogsSize int    `json:"maxLogsSize"`
 	MaxTempSize int    `json:"maxTempSize"`
 }
@@ -24,7 +25,7 @@ const (
 	dataFolder     = "data"
 	logsFolder     = "logs"
 	tempFolder     = "temp"
-	defaultRepo    = "files"
+	defaultRepo    = "release"
 )
 
 var zealConfig *ZealConfig
