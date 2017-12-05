@@ -1,8 +1,7 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "go.buildOnSave": true,
-    "go.lintOnSave": true,
-    "go.vetOnSave": true,
+    "files.autoSave": "afterDelay",
+    "go.formatOnSave": false,
     "go.buildTags": "",
     "go.buildFlags": [],
     "go.lintTool": "golint",
@@ -10,10 +9,7 @@
     "go.vetFlags": [],
     "go.coverOnSave": false,
     "go.useCodeSnippetsOnFunctionSuggest": false,
-    "go.formatOnSave": true,
     "go.formatTool": "goreturns",
     "go.formatFlags": [],
-    "go.goroot": "c:/Go",
-    "go.gopath": "c:/Projects/Go",
-    "go.gocodeAutoBuild": false
+    "go.gocodeAutoBuild": true
 }
