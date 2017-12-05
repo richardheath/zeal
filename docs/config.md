@@ -8,7 +8,7 @@ Name of the package.
 ## version
 Package version.
 
-## keep
+## updateRule
 Rule that zeal will use to determine if previously installed version needs 
 to be uninstalled before installing new version of the package. 
 If currently installed doesn’t need to be uninstalled then multiple version will be installed on machine.
