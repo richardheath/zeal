@@ -7,9 +7,49 @@ installation and running of packages. Zeal is the abstraction
 point of package lifecyle using idempotent scripts.
 
 This can be used to simplify DevOps work. It doesn't matter
-what technology is used the project is built using `zeal build`.
-This can also simplify CICD since the build job just needs to run
-the same command.
+what technology is used the projects can have similar pattern on
+how it is built, tested, installed, etc. This can also simplify
+CICD since the build job just needs to run the same command.
+
+# Multi OS packaging
+
+Only create/publish platform packages if all file source requirements
+are satisfied on all commands.
+
+For given sample below. Package for windows will only
+be created when `bin/service_windows_amd64.exe` exist on
+package. Same this with mac it will only create package
+when `bin/service_darwin_amd64` exist on package.
+
+```
+install "contents" "service" {
+    destination = "service"
+
+    "windows/amd64" = {
+        source = "bin/service_windows_amd64.exe"
+        destination = "service.exe"
+    }
+    
+    "darwin/amd64" = {
+        source = "bin/service_darwin_amd64"
+    }
+}
+```
+
+add `--expectedPackages` flag as a check of what package
+platforms are expected from current package command.
+
+# Common Files
+
+To save storage source files that are shared by multi platform are
+stored on common zip package. These can still be overriden by files
+on platform specific packages.
+
+# Notes
+
+Think about support for multi version
+Finalize design support on multi OS
+Do not support different files per OS on packaging
 
 # Configuration
 
@@ -86,6 +126,10 @@ Stop running package.
 Extensions are executables that will handle the options 
 of zeal configuration.
 
+## Extensible Commands
+
+Allow custom commands.
+
 ## Extension Registry
 
 Zeal cli will download extensions from registry. Registry
@@ -98,13 +142,11 @@ be used.
 - variables
 - settings
 
-## Extensions Can Create Zeal Config
+## Extensions Uninstall
 
-An extension can create another extension config. Sample
-usecase is for install extension telling zeal on how to
-uninstall by giving uninstall instructions using zeal config.
-
-implicit configs.
+Install extensions are automatically called when uninstalled.
+Ideally it should undo the setup that it does. Contents are
+automatically removed.
 
 ## Metadata
 
@@ -124,6 +166,13 @@ Implicit are difined by command extension
 
 # Old Design
 
+## Extensions Can Create Zeal Config
+
+An extension can create another extension config. Sample
+usecase is for install extension telling zeal on how to
+uninstall by giving uninstall instructions using zeal config.
+
+implicit configs.
 
 ## Single Source Of Truth
 

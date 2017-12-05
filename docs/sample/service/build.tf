@@ -1,14 +1,15 @@
-/*
-Components implicitly create normalized dependencies section.
-
-build "msbuild" "dependencies" {
-    "type": {"name":"version"}
-}
-
-*/
-
 build "go" "project" {
-    cross_compile = true
+    osarch = [
+        "darwin/amd64",
+        "linux/amd64",
+        "windows/amd64"
+    ]
 }
 
-test "go_test" "unittest" {}
+init "go" "project" {
+    osarch = [
+        "darwin/amd64",
+        "linux/amd64",
+        "windows/amd64"
+    ]
+}

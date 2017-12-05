@@ -2,7 +2,7 @@
 Run service using zeal.
 */
 run "daemon" "service" {
-    executable = "service_exe"
+    executable = "${install.contents.service.file[0]}"
     params = ["--loglevel", "${var.log_level}"]
 }
 
