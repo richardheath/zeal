@@ -2,49 +2,68 @@ package main
 
 import (
 	"github.com/richardheath/cli"
-	"github.com/richardheath/zeal/processor"
+	"github.com/richardheath/zeal/config"
 )
 
-func generateCliCommands() []cli.Command {
-	return []cli.Command{
-		initCommonCommandsHandler(),
-	}
+func initCLI(app *cli.App) {
+	globalConfig := config.GetZealConfig()
+	app.Flag("option", "repo", globalConfig.DefaultRepo, nil)
+	app.Flag("option", "registry", globalConfig.Registry, nil)
+
+	initBuildCommand(app)
+	initTestCommand(app)
+	initPackageCommand(app)
+	initPublishCommand(app)
+	initInstallCommand(app)
+	initUninstallCommand(app)
+	initRunCommand(app)
+	initStopCommand(app)
 }
 
-func initCommonCommandsHandler() cli.Command {
-	return cli.Command{
-		Path:  []string{"{{--command}}"},
-		Usage: "{command} {package}",
-		FlagTypes: []cli.FlagType{
-			cli.FlagType{
-				Key:        "command",
-				Shorthand:  "c",
-				Default:    "",
-				Prefix:     "--",
-				Validators: []cli.FlagValidator{},
-			},
-			cli.FlagType{
-				Key:        "package",
-				Shorthand:  "p",
-				Default:    "./zeal",
-				Prefix:     "--",
-				Validators: []cli.FlagValidator{},
-			},
-		},
-		Action: func(flags cli.ProcessedFlags) error {
-			cmd := flags.Known["--command"]
-			pkg := flags.Known["--package"]
-			return processor.ExecuteCommand(cmd, pkg)
-		},
-		Commands: []cli.Command{
-			cli.Command{
-				Path: []string{"{{--package}}"},
-				Action: func(flags cli.ProcessedFlags) error {
-					cmd := flags.Known["--command"]
-					pkg := flags.Known["--package"]
-					return processor.ExecuteCommand(cmd, pkg)
-				},
-			},
-		},
-	}
+func initBuildCommand(app *cli.App) {
+	cmd := app.Command("build", nil)
+	cmd.Flag("option", "zealPath", "./zeal", nil)
+	cmd.Command("{{option:zealPath}}", nil)
+}
+
+func initTestCommand(app *cli.App) {
+	cmd := app.Command("test", nil)
+	cmd.Flag("option", "zealPath", "./zeal", nil)
+	cmd.Command("{{option:zealPath}}", nil)
+}
+
+func initPackageCommand(app *cli.App) {
+	cmd := app.Command("package", nil)
+	cmd.Flag("option", "zealPath", "./zeal", nil)
+	cmd.Command("{{option:zealPath}}", nil)
+}
+
+func initPublishCommand(app *cli.App) {
+	cmd := app.Command("publish", nil)
+	cmd.Flag("option", "zealPath", "./zeal", nil)
+	cmd.Command("{{option:zealPath}}", nil)
+}
+
+func initInstallCommand(app *cli.App) {
+	cmd := app.Command("install {{option:package}}", nil)
+	cmd.Flag("option", "package p", "", nil)
+	cmd.Flag("option", "group g", "default", nil)
+}
+
+func initUninstallCommand(app *cli.App) {
+	cmd := app.Command("uninstall {{option:package}}", nil)
+	cmd.Flag("option", "package p", "", nil)
+	cmd.Flag("option", "group g", "default", nil)
+}
+
+func initRunCommand(app *cli.App) {
+	cmd := app.Command("run {{option:package}}", nil)
+	cmd.Flag("option", "package p", "", nil)
+	cmd.Flag("option", "group g", "default", nil)
+}
+
+func initStopCommand(app *cli.App) {
+	cmd := app.Command("stop {{option:package}}", nil)
+	cmd.Flag("option", "package p", "", nil)
+	cmd.Flag("option", "group g", "default", nil)
 }

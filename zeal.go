@@ -21,20 +21,10 @@ func main() {
 	}
 
 	app := cli.NewApp("zeal", "0.1.0")
-	app.FlagPrefixes = []cli.FlagPrefix{
-		cli.FlagPrefix{
-			Key:         "--",
-			Shorthand:   "-",
-			Description: "options",
-		},
-		cli.FlagPrefix{
-			Key:         "#",
-			Shorthand:   "",
-			Description: "variables",
-		},
-	}
+	app.FlagType("option", "--", "-")
+	app.FlagType("variable", "#")
 
-	app.Commands = generateCliCommands()
+	initCLI(&app)
 	err = app.Run(os.Args[1:])
 	
 	if err != nil {
