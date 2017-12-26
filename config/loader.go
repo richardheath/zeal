@@ -61,7 +61,7 @@ func getConfigFiles(dirPath string) ([]string, error) {
 
 func generateConfig(data string) (*Config, error) {
 	config := Config{
-		items: []Item{},
+		items: []ConfigItem{},
 	}
 
 	hclRoot, err := hcl.Parse(string(data))
@@ -75,7 +75,7 @@ func generateConfig(data string) (*Config, error) {
 	}
 	
 	for _, item := range list.Children().Items {
-		configItem := Item{}
+		configItem := ConfigItem{}
 
 		keysLen := len(item.Keys)
 		if keysLen > 0 {
