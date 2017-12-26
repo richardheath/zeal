@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/richardheath/cli"
 	"github.com/richardheath/zeal/config"
 )
@@ -9,10 +11,12 @@ func initCLI(app *cli.App) {
 	globalConfig := config.GetZealConfig()
 	app.Flag("option", "repo", globalConfig.DefaultRepo, nil)
 	app.Flag("option", "registry", globalConfig.Registry, nil)
+	app.Flag("option", "path p", "./zeal", nil)
 
+	initInitCommand(app)
 	initBuildCommand(app)
 	initTestCommand(app)
-	initPackageCommand(app)
+	initPackCommand(app)
 	initPublishCommand(app)
 	initInstallCommand(app)
 	initUninstallCommand(app)
@@ -20,28 +24,24 @@ func initCLI(app *cli.App) {
 	initStopCommand(app)
 }
 
+func initInitCommand(app *cli.App) {
+	app.Command("init", nil)
+}
+
 func initBuildCommand(app *cli.App) {
-	cmd := app.Command("build", nil)
-	cmd.Flag("option", "zealPath", "./zeal", nil)
-	cmd.Command("{{option:zealPath}}", nil)
+	app.Command("build", buildCommand)
 }
 
 func initTestCommand(app *cli.App) {
-	cmd := app.Command("test", nil)
-	cmd.Flag("option", "zealPath", "./zeal", nil)
-	cmd.Command("{{option:zealPath}}", nil)
+	app.Command("test", nil)
 }
 
-func initPackageCommand(app *cli.App) {
-	cmd := app.Command("package", nil)
-	cmd.Flag("option", "zealPath", "./zeal", nil)
-	cmd.Command("{{option:zealPath}}", nil)
+func initPackCommand(app *cli.App) {
+	app.Command("pack", packCommand)
 }
 
 func initPublishCommand(app *cli.App) {
-	cmd := app.Command("publish", nil)
-	cmd.Flag("option", "zealPath", "./zeal", nil)
-	cmd.Command("{{option:zealPath}}", nil)
+	app.Command("publish", nil)
 }
 
 func initInstallCommand(app *cli.App) {
@@ -66,4 +66,9 @@ func initStopCommand(app *cli.App) {
 	cmd := app.Command("stop {{option:package}}", nil)
 	cmd.Flag("option", "package p", "", nil)
 	cmd.Flag("option", "group g", "default", nil)
+}
+
+func echoHello(ctx *cli.Context) error {
+	fmt.Println("build!!!")
+	return nil
 }
