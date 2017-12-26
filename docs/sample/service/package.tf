@@ -1,4 +1,4 @@
-package "settings" {
+package "settings" "zeal"  {
     name = "samplePackage"
     description = "Sample Package"
     version = "1.0.0"
